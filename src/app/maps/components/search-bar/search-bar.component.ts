@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PlacesService } from '../../services';
 
 @Component({
   selector: 'app-search-bar',
@@ -9,7 +10,7 @@ export class SearchBarComponent  {
 
   private debounceTimer?: NodeJS.Timeout
 
-  constructor() { }
+  constructor( private placesServices: PlacesService) { }
 
   //Debounce manual
   // Este metodo debe controlar la forma como se van a emitir los valores del input
@@ -18,7 +19,7 @@ export class SearchBarComponent  {
     if( this.debounceTimer ) clearTimeout( this.debounceTimer );
 
     this.debounceTimer = setTimeout(() => {
-      console.log("mandar este query", query)
+      this.placesServices.getPlacesByQuery( query )
     }, 350)
   }
 
